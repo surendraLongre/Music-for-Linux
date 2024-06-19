@@ -15,14 +15,14 @@ if [ -z "$1" ]; # if the user don't provide appropriate command line options
 then
 	echo "usage: playmusic <song_name>	//to play the song, or"
 	echo "usage: playmusic stop-music 	//to stop the music"
-	exit 0
+	exit 1
 
 elif [ "$1" = "stop-music" ];
 then
 	music_pid="$(ps -ef | grep mpv | grep '\--loop --no-video' | awk '{print $2}')"
 	if [ -z "$music_pid" ]; then
 		echo 'no music is being played'
-		exit 0
+		exit 1
 	fi
 	kill $music_pid
 	exit 0
