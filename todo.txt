@@ -6,4 +6,4 @@
 - make the script play all songs in order : from urls :)
 - make the script play all songs as shuffle : from urls :)
 - fix the invalid options for genre problem
-	- make a feature to list all the available command types or patterns
+	- make a feature to list all the available command types or patterns:) finished this in README file
