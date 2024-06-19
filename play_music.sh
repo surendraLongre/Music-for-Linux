@@ -6,9 +6,6 @@
 music_path="/home/kgpk/my_scripts/music_script/songs_link.txt"	# music text file to play songs from a url
 
 #get the song name
-song_name=$1
-
-link_addr="$(grep -i "$song_name" "$music_path" | awk '{print $NF}')"
 # add the stop-music option to stop mpv player
 
 if [ -z "$1" ]; # if the user don't provide appropriate command line options
@@ -28,14 +25,14 @@ then
 		if [[ -z $link_addr ]];
 		then
 			echo "song not found"
-			exit
+			exit 2
 		else
 			mpv $link_addr --no-video &>/dev/null &
 			echo "playing $song_name"
 			wait
 		fi
 	done < "$music_path"
-	exit
+	exit 0
 	
 #
 # play songs as shuffle
@@ -51,7 +48,7 @@ then
 		if [[ -z $link_addr ]];
 		then
 			echo "song not found"
-			exit
+			exit 2
 		else
 			mpv $link_addr --no-video &>/dev/null &
 			echo "playing $song_index $song_name"
@@ -59,7 +56,7 @@ then
 			song_index=$((song_index+1))
 		fi
 	done <<< "$shuffled_music"
-	exit
+	exit 0
 
 #
 # stop music on users request
@@ -74,12 +71,35 @@ then
 	fi
 	kill $music_pid
 	exit 0
+	
+elif [ "$1" = "genre" ];
+then
+	echo "$1 $2"
+	music_dir='/media/kgpk/Music/'
+	while read -r line; do
+		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
+		dir="/media/kgpk/Music/$line"
+		loop_genre="$(exiftool -genre "$dir" | grep -i $2)"
+#		echo $loop_genre
+		if [[ -z $loop_genre ]];
+		then
+			continue
+		else
+			mpv "$dir" --no-video
+			#wait
+		fi
+	done < <(ls $music_dir)
+	exit 0
 fi
 
 #
 # play songs from url
 # get the url links and check whether it exists or not or play the music
 #
+
+song_name=$1
+
+link_addr="$(grep -i "$song_name" "$music_path" | awk '{print $NF}')"
 
 if [[ -z $link_addr ]];
 then
