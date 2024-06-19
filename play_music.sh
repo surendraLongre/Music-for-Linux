@@ -16,6 +16,54 @@ then
 	echo "usage: playmusic <song_name>	//to play the song, or"
 	echo "usage: playmusic stop-music 	//to stop the music"
 	exit 1
+#
+# play songs in order
+#
+
+elif [ "$1" = "--all" ];
+then
+	while read -r line; do
+		link_addr="$(echo $line | awk '{print $NF}')"
+		song_name="$(echo $line | cut -d'-' -f1)"
+		if [[ -z $link_addr ]];
+		then
+			echo "song not found"
+			exit
+		else
+			mpv $link_addr --no-video &>/dev/null &
+			echo "playing $song_name"
+			wait
+		fi
+	done < "$music_path"
+	exit
+	
+#
+# play songs as shuffle
+#
+
+elif [ "$1" = "--shuffle" ];
+then
+	song_index=1
+	shuffled_music=$(shuf "$music_path")
+	while read -r line; do
+		link_addr="$(echo $line | awk '{print $NF}')"
+		song_name="$(echo $line | cut -d'-' -f1)"
+		if [[ -z $link_addr ]];
+		then
+			echo "song not found"
+			exit
+		else
+			mpv $link_addr --no-video &>/dev/null &
+			echo "playing $song_index $song_name"
+			wait
+			song_index=$((song_index+1))
+		fi
+	done <<< "$shuffled_music"
+	exit
+
+#
+# stop music on users request
+#
 
 elif [ "$1" = "stop-music" ];
 then
