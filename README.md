@@ -15,3 +15,5 @@ currently only online links are part of main song search list
 > to play songs from local folder use the command
     ``` playmusic genre <genre_type>```
 > to set genre you can use `metaflac` command or `id3v2` for mp3 or ogg songs and `exiftool` for m4a songs.
+
+> or even simple, just run `genreCheck.sh` script and it will display all songs without a genre. Currently it only search for three genres: `Romantic, Sad, Uplifting`.
