@@ -14,3 +14,4 @@ while read line; do
  #	echo "$file_name"
 #done <<< "$(ls $music_dir | xargs -I {} echo '{}')" 
 done < <(ls $music_dir) 
+exit 0
