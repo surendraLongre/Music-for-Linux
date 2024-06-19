@@ -3,5 +3,5 @@
 	- something like "playmusic stop-music"  to stop the music :)
 - fix stop-music crash :)
 - make the script play local songs 
-- make the script play all songs in order : from urls
-- make the script play all songs as shuffle : from urls
+- make the script play all songs in order : from urls :)
+- make the script play all songs as shuffle : from urls :)
