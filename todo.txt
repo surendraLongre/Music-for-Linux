@@ -1,1 +1,3 @@
 - add feature to play music from command line from a list of songs based on the match from a url
+- add the functionality to quit the music player based on user input
+	- something like "playmusic stop-music"  to stop the music
