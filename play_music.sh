@@ -88,7 +88,7 @@ then
 			mpv "$dir" --no-video
 			#wait
 		fi
-	done < <(ls $music_dir)
+	done < <(ls $music_dir | shuf )
 	exit 0
 fi
 
