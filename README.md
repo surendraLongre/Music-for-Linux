@@ -3,6 +3,10 @@
 ## Necessary settings to make script work better
 > make sure you have `playmusic` setup as alias or as a link to the `play_music.sh` script file
 
+> make sure the variable `music_dir` in scripts is set to the location of local songs folder, and
+
+> the variable `music_path` is set to the location of file of urls
+
 # Idea of the Project
 > This project uses `mpv` media player to play songs,
 currently only online links are part of main song search list
