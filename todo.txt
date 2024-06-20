@@ -7,3 +7,5 @@
 - make the script play all songs as shuffle : from urls :)
 - fix the invalid options for genre problem
 	- make a feature to list all the available command types or patterns:) finished this in README file
+- make the script priorities local songs more than urls and play them
+	- play urls as a backup option
