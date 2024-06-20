@@ -13,9 +13,9 @@ then
 	echo "usage: playmusic <song_name>	//to play the song, or"
 	echo "usage: playmusic stop-music 	//to stop the music"
 	exit 1
-#
-# play songs in order
-#
+	#
+	# play songs in order
+	#
 
 elif [ "$1" = "--all" ];
 then
@@ -33,7 +33,7 @@ then
 		fi
 	done < "$music_path"
 	exit 0
-	
+
 #
 # play songs as shuffle
 #
@@ -71,7 +71,7 @@ then
 	fi
 	kill $music_pid
 	exit 0
-	
+
 elif [ "$1" = "genre" ];
 then
 	echo "$1 $2"
@@ -80,7 +80,7 @@ then
 		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
 		dir="/media/kgpk/Music/$line"
 		loop_genre="$(exiftool -genre "$dir" | grep -i $2)"
-#		echo $loop_genre
+		#		echo $loop_genre
 		if [[ -z $loop_genre ]];
 		then
 			continue
@@ -142,7 +142,7 @@ else
 				if [[ $song_name =~ "$1" ]]; then
 					index=1
 				else
-		#			echo $song_name
+					#			echo $song_name
 					continue
 				fi
 
