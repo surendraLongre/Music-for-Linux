@@ -98,8 +98,25 @@ fi
 #
 
 song_name=$1
+music_dir='/media/kgpk/Music/' 		# local songs directory
 
-link_addr="$(grep -i "$song_name" "$music_path" | awk '{print $NF}')"
+link_addr="$(grep -i "$song_name" < <(ls $music_dir))"
+if [ "$(echo "$link_addr" | wc -l)" -gt 1 ]; then
+	echo "######################################## matched songs ########################################"
+	#echo "currently matched songs, play by additional keywords"																
+	echo "$link_addr"
+	echo "###############################################################################################"
+	echo
+fi
+link_addr="$(grep -i "$song_name" < <(ls $music_dir) | head -1)"
+
+if [ -z "$link_addr" ]; then
+	echo empty
+	link_addr="$(grep -i "$song_name" "$music_path" | awk '{print $NF}')"
+else
+	song_name="$link_addr"
+	link_addr="$music_dir$link_addr"
+fi
 
 if [[ -z $link_addr ]];
 then
@@ -107,8 +124,14 @@ then
 	exit 1
 else
 	if [ -z "$2" ]; then
-		mpv $link_addr --loop --no-video &>/dev/null &
-		echo "playing '$1'"
+		music_pid="$(ps -ef | grep mpv | grep '\--loop --no-video' | awk '{print $2}')"
+		#check if music is already being played
+		#if so stop the current song and play the requested one
+		if [ -n "$music_pid" ]; then
+			kill $music_pid
+		fi
+		mpv "$link_addr" --loop --no-video &>/dev/null &
+		echo "playing '$song_name'"
 	else
 		index=0
 		while read -r line; do
