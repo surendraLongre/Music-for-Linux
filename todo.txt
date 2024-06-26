@@ -9,3 +9,4 @@
 	- make a feature to list all the available command types or patterns:) finished this in README file
 - make the script priorities local songs more than urls and play them:)
 	- play urls as a backup option:)
+- write script to output songs of a particular genre
