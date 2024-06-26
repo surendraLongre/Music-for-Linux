@@ -74,6 +74,12 @@ then
 
 elif [ "$1" = "genre" ];
 then
+		music_pid="$(ps -ef | grep mpv | grep '\--loop --no-video' | awk '{print $2}')"
+		#check if music is already being played
+		#if so stop the current song and play the requested one
+		if [ -n "$music_pid" ]; then
+			kill $music_pid
+		fi #finish with the stopping function for already playing songs
 	echo "$1 $2"
 	music_dir='/media/kgpk/Music/'
 	while read -r line; do
