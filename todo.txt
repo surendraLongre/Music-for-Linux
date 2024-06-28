@@ -10,3 +10,5 @@
 - make the script priorities local songs more than urls and play them:)
 	- play urls as a backup option:)
 - write script to output songs of a particular genre
+- add feature to search for songs online on youtube and play them using the link
+	- curl -s https://www.youtube.com/results?search_query=lehanga+jass+manak | awk '{ match($0, /videoId(.{22})/, arr); print arr[1] }' | sed '/^$/d'

@@ -126,8 +126,21 @@ fi
 
 if [[ -z $link_addr ]];
 then
-	echo "song not found"
-	exit 1
+	#search for the song on youtube
+	#and get the link to the song
+	search_result=$(curl -s "https://www.youtube.com/results?search_query=$(echo "$@" | tr ' ' '+' )" | awk '{ match($0, /videoId(.{22})/, arr); print arr[1] }' | sed '/^$/d' | cut -c4-14)
+	#echo $search_result
+	link_addr="https://www.youtube.com/watch?v=$search_result"
+
+	music_pid="$(ps -ef | grep mpv | grep '\--loop --no-video' | awk '{print $2}')"
+	#check if music is already being played
+	#if so stop the current song and play the requested one
+	if [ -n "$music_pid" ]; then
+		kill $music_pid
+	fi
+	mpv "$link_addr" --loop --no-video #&>/dev/null &
+	echo "playing '$@'"
+	exit 0
 else
 	if [ -z "$2" ]; then
 		music_pid="$(ps -ef | grep mpv | grep '\--loop --no-video' | awk '{print $2}')"
