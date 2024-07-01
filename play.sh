@@ -13,12 +13,13 @@ stop(){
 	music_pid="$(pidof mpv | tr ' ' '\n' )"
 	if [ "$(echo "$music_pid" | wc -l)" -gt 1 ]; then
 		echo "$music_pid"
-		exit
+		exit 1
 	fi
 	if [ -z "$music_pid" ]; then
 		echo 'no music was being played'
+		return
 	fi
-#	kill $music_pid
+	kill $music_pid 
 }
 
 
