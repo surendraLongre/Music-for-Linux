@@ -2,7 +2,7 @@
 
 #write script to output files with particular genre
 
-music_dir='/media/kgpk/Music/'
+music_dir="$SONGDIR"
 
 while read line; do
 	genre_type="$(exiftool -genre "$music_dir$line" | grep -i "$1" )"

@@ -2,7 +2,7 @@
 
 #write script to rename the songs The same as their title name
 
-music_dir='/media/kgpk/Music/'
+music_dir="$SONGDIR"
 
 while read line; do
 	title_name="$(exiftool -title "$music_dir$line" | cut -d ':' -f2 | sed 's/^ //')"

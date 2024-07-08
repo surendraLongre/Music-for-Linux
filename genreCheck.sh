@@ -2,7 +2,7 @@
 
 #write script to make if they don't include any genre
 
-music_dir='/media/kgpk/Music/'
+music_dir="$SONGDIR"
 
 while read line; do
 	genre_type="$(exiftool -genre "$music_dir$line" | egrep -i "romantic|sad|uplifting" )"
