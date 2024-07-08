@@ -7,6 +7,11 @@
 
 > the variable `music_path` is set to the location of file of urls
 
+## Necessary environment variables
+> set `SONGDIR` variable as the path to the directory of songs
+
+> set `LYRCDIR` variable as the path to the directory of lyrics
+
 # Idea of the Project
 > This project uses `mpv` media player to play songs,
 currently only online links are part of main song search list
