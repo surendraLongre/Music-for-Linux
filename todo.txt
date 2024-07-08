@@ -13,3 +13,6 @@
 - add feature to search for songs online on youtube and play them using the link
 	- curl -s https://www.youtube.com/results?search_query=$(echo "$@" | tr ' ' '+') | awk '{ match($0, /videoId(.{22})/, arr); print arr[1] }' | sed '/^$/d'
 - add functions to play_music.sh script to get rid of the repeatition of same commands and lines
+- also stop the stopping of song function for songs
+	- not much beneficial
+- add feature to play songs with lyrics from the Lyrics directory
