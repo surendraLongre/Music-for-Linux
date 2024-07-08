@@ -2,6 +2,7 @@
 
 #local songs music directory
 music_dir="$SONGDIR"
+lyric_dir="$LYRCDIR"
 
 #write function definitions
 
@@ -89,4 +90,4 @@ then
 fi
 
 echo playing ${song_name:-$1}
-play "$link_addr" --no-video ${@:2}
+play "$link_addr" --no-video ${@:2} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
