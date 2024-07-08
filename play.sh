@@ -42,7 +42,6 @@ then
 
 elif [ "$1" = "genre" ];
 then
-	stop &>/dev/null #stop the already playing songs
 	while read -r line; do
 		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
 		dir="/media/kgpk/Music/$line"
@@ -90,5 +89,4 @@ then
 fi
 
 echo playing ${song_name:-$1}
-stop
 play "$link_addr" --no-video ${@:2}
