@@ -87,6 +87,7 @@ then
 	search_result=$(curl -s "https://www.youtube.com/results?search_query=$(echo "$@" | tr ' ' '+' )" | awk '{ match($0, /videoId(.{22})/, arr); print arr[1] }' | sed '/^$/d' | cut -c4-14)
 	#echo $search_result
 	link_addr="https://www.youtube.com/watch?v=$search_result"
+	echo "playing online"
 fi
 
 echo playing ${song_name:-$1}
