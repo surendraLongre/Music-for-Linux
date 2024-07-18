@@ -52,7 +52,7 @@ then
 		then
 			continue
 		else
-			play "$dir" --no-video
+			play "$link_addr" --no-video ${@:2} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
 			#wait
 		fi
 	done < <(ls $music_dir | shuf )
