@@ -52,7 +52,7 @@ then
 		then
 			continue
 		else
-			play "$dir" --no-video ${@:2} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
+			play "$dir" --no-video ${@:3} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
 			#wait
 		fi
 	done < <(ls $music_dir | shuf )
@@ -84,7 +84,7 @@ if [[ -z $link_addr ]];
 then
 	#search for the song on youtube
 	#and get the link to the song
-	search_result=$(curl -s "https://www.youtube.com/results?search_query=$(echo "$@" | tr ' ' '+' )" | awk '{ match($0, /videoId(.{22})/, arr); print arr[1] }' | sed '/^$/d' | cut -c4-14)
+	search_result=$(curl -s "https://www.youtube.com/results?search_query=$(echo "$1" | tr ' ' '+' )" | awk '{ match($0, /videoId(.{22})/, arr); print arr[1] }' | sed '/^$/d' | cut -c4-14)
 	#echo $search_result
 	link_addr="https://www.youtube.com/watch?v=$search_result"
 	echo "playing online"
