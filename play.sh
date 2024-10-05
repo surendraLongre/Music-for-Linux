@@ -57,8 +57,24 @@ then
 		fi
 	done < <(ls $music_dir | shuf )
 	exit 0
-fi
 
+elif [ "$1" = "artist" ];
+then
+	while read -r line; do
+		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
+		dir="/media/kgpk/Music/$line"
+		loop_genre="$(exiftool -artist "$dir" | grep -i $2)"
+		#		echo $loop_genre
+		if [[ -z $loop_genre ]];
+		then
+			continue
+		else
+			play "$dir" --no-video ${@:3} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
+			#wait
+		fi
+	done < <(ls $music_dir | shuf )
+	exit 0
+fi
 
 #play songs on user request
 link_addr="$(grep -i "$1" < <(ls $music_dir))"
