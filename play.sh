@@ -84,13 +84,22 @@ if [ "$(echo "$link_addr" | wc -l)" -gt 1 ]; then
 	echo "$link_addr"
 	echo "###############################################################################################"
 	echo
-	link_addr="$(echo "$link_addr" | head -1)"
+#	link_addr="$(echo "$link_addr" | head -1)"
 fi
 
 #add full path to link_addr variable
 if [ -n "$link_addr" ]; then
 	song_name="$link_addr"
-	link_addr="$music_dir$link_addr"
+
+	while read -r line; do
+		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
+#		dir="/media/kgpk/Music/$line"
+		echo $line
+		line="$music_dir$line"
+		play "$line" --no-video ${@:2} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
+			#wait
+	done <<< "$link_addr"
+	exit 0
 fi
 
 #if no song exist in the provided link_addr variable
