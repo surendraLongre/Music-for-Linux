@@ -3,6 +3,7 @@
 #local songs music directory
 music_dir="$SONGDIR"
 lyric_dir="$LYRCDIR"
+fav_file="/home/kgpk/Documents/myFavSongs.txt"
 
 #write function definitions
 
@@ -73,6 +74,13 @@ then
 			#wait
 		fi
 	done < <(ls $music_dir | shuf )
+	exit 0
+elif [ "$1" = "fav" ];
+then
+	while read -r line; do
+		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
+		playmusic "$line"
+	done < <(cat $fav_file | shuf )
 	exit 0
 fi
 
