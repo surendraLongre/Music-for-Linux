@@ -29,8 +29,8 @@ stop(){
 
 if [ -z "$1" ]; # if the user don't provide appropriate command line options
 then
-	echo "usage: playmusic <song_name>	//to play the song, or"
-	echo "usage: playmusic stop-music 	//to stop the music"
+	echo "usage: play <song_name>	//to play the song, or"
+	echo "usage: play stop-music 	//to stop the music"
 	exit 1
 	
 #
