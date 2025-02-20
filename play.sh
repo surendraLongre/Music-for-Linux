@@ -46,7 +46,7 @@ elif [ "$1" = "genre" ];
 then
 	while read -r line; do
 		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
-		dir="/media/kgpk/Music/$line"
+		dir="/mnt/kgpk/Music/$line"
 		loop_genre="$(exiftool -genre "$dir" | grep -i $2)"
 		#		echo $loop_genre
 		if [[ -z $loop_genre ]];
@@ -63,7 +63,7 @@ elif [ "$1" = "artist" ];
 then
 	while read -r line; do
 		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
-		dir="/media/kgpk/Music/$line"
+		dir="/mnt/kgpk/Music/$line"
 		loop_genre="$(exiftool -artist "$dir" | grep -i $2)"
 		#		echo $loop_genre
 		if [[ -z $loop_genre ]];
@@ -79,8 +79,8 @@ elif [ "$1" = "fav" ];
 then
 	while read -r line; do
 		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
-		playmusic "$line"
-	done < <(cat $fav_file | shuf )
+		playmusic "$line" ${@:2} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
+	done < <(cat ${2:-$fav_file}| shuf )
 	exit 0
 fi
 
@@ -101,7 +101,7 @@ if [ -n "$link_addr" ]; then
 
 	while read -r line; do
 		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
-#		dir="/media/kgpk/Music/$line"
+#		dir="/mnt/kgpk/Music/$line"
 		echo $line
 		line="$music_dir$line"
 		play "$line" --no-video ${@:2} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
