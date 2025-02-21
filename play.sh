@@ -77,10 +77,18 @@ then
 	exit 0
 elif [ "$1" = "fav" ];
 then
+	if [ -f "$2" ];
+	then
+		while read -r line; do
+			trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
+			playmusic "$line" ${@:3} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
+		done < <(cat $2 | shuf )
+		exit 0
+	fi
 	while read -r line; do
 		trap 'exit 1' SIGINT  # Trap SIGINT signal and exit with status 1
 		playmusic "$line" ${@:2} --sub-file-paths="$lyric_dir" --sub-auto=fuzzy
-	done < <(cat ${2:-$fav_file}| shuf )
+	done < <(cat $fav_file | shuf )
 	exit 0
 fi
 
